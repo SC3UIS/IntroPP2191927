@@ -101,7 +101,7 @@ mpicc -O3 -Wall -o heat_mpi main.c core.c setup.c utilities.c io.c pngwriter.c -
 
 Este comando compilará todos los archivos fuente y generará un ejecutable llamado ``` heat_mpi. ``` Los argumentos ``` -O3 ``` y ``` -Wall ``` habilitan las optimizaciones y muestran advertencias, respectivamente. Las opciones ``` -lpng ``` y ``` -lm ``` se utilizan para vincular las bibliotecas necesarias.
 
-##Ejecución Interactiva
+## Ejecución Interactiva
 
 Podemos ejecutar el programa interactivamente utilizando el comando `mpirun`. A continuación se describen varias opciones para ejecutar el programa con diferentes condiciones iniciales y parámetros de tiempo. Asegúrate de haber compilado el programa siguiendo las instrucciones previamente proporcionadas.
 
@@ -151,7 +151,7 @@ mpirun -np 8 ./heat_mpi 800 800 1000
 
 Todos estos comandos, generará una serie de archivos heat_NUM_figura.png que representan el desarrollo temporal del campo de temperatura. Podemos utilizar cualquier visor de gráficos para visualizar estos resultados.
 
-##Ejecución Pasiva
+## Ejecución Pasiva
 
 Para ejecutar el programa en modo pasivo utilizando sbatch y garantizar que se cargue el módulo MPI recomendado antes de la ejecución, debemos seguir estos pasos:
 
