@@ -24,7 +24,7 @@ A continuación, se proporciona un ejemplo de cómo compilar la solución en un 
 
 ```bash
 mpicc -o heat_solver core.c main.c io.c setup.c utilities.c pngwriter.c -lm -lpng
-
+```
 ## Explicación del Código (main.c)
 
 El código proporcionado resuelve la Ecuación de Calor en 2D utilizando el modelo de programación paralela MPI (Message Passing Interface). A continuación, se explica en lenguaje sencillo lo que hace el código paso a paso:
