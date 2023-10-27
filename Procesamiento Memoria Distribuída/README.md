@@ -186,4 +186,63 @@ Utilizando el comando sbatch para enviar el trabajo a Slurm. El script se somete
 sbatch run_heat_mpi.sh
 ```
 
+# Ejecución de pruebas Simulación de la Ecuación de Calor 2D
 
+Los resultados de la simulación de la ecuación de calor 2D utilizando el programa `heat_mpi` compilado con las banderas por defecto `-O3 -Wall` pero con diferentes configuraciones. A continuación, se presentan los resultados, las configuraciones y las conclusiones de las pruebas.
+
+### Prueba 1: Ejecución con archivo 'bottle.dat'
+
+Ejecución:
+```bash
+mpirun -np 8 ./heat_mpi bottle.dat
+```
+
+Resultados:
+
+![Texto alternativo](https://github.com/SC3UIS/IntroPP2191927/blob/main/Procesamiento%20Memoria%20Distribu%C3%ADda/imgs/1280%201280.png)
+
+- Uso de descomposición de dominio 4x2
+- Tamaño local del dominio: 500x1000
+- Tiempo de iteración: 63.527 segundos
+
+### Prueba 2: Ejecución con archivo 'bottle.dat' y 1000 pasos
+
+Ejecución:
+```bash
+mpirun -np 8 ./heat_mpi bottle.dat 1000
+```
+
+Resultados:
+
+![Texto alternativo](https://github.com/SC3UIS/IntroPP2191927/blob/main/Procesamiento%20Memoria%20Distribu%C3%ADda/imgs/mpirun%20-np%208%201000.png)
+
+- Uso de descomposición de dominio 4x2
+- Tamaño local del dominio: 500x1000
+- Reinicio desde un punto de control guardado en la iteración 400
+- Tiempo de iteración: 157.694 segundos
+- Valor de referencia en (5,5): 52.780686
+
+### Prueba 3: Ejecución con dimensiones 1280x1280 y 1000 pasos
+
+Ejecución:
+```bash 
+mpirun -np 8 ./heat_mpi 1280 1280 1000
+```
+
+Resultados:
+
+![Texto alternativo](https://github.com/SC3UIS/IntroPP2191927/blob/main/Procesamiento%20Memoria%20Distribu%C3%ADda/imgs/1280%201280.png)
+
+- Uso de descomposición de dominio 4x2
+- Tamaño local del dominio: 500x1000
+- Reinicio desde un punto de control guardado en la iteración 1400
+- Tiempo de iteración: 157.315 segundos
+- Valor de referencia en (5,5): 52.664584
+
+## Conclusiones
+**La ejecución con el archivo 'bottle.dat' tomó menos tiempo que la ejecución con dimensiones 1280x1280 y 1000 pasos, lo que sugiere que el tamaño del dominio y la cantidad de pasos afectan significativamente el tiempo de ejecución.**
+
+**En la Prueba 2, se reinició desde un punto de control guardado, lo que permitió continuar desde una iteración anterior. Esto puede ser útil para reducir el tiempo de ejecución cuando se requieren ejecuciones largas.**
+
+**Los valores de referencia en la Prueba 2 y Prueba 3 muestran la temperatura en el punto (5,5), lo que puede ser importante para evaluar la precisión del resultado.**
+ 
