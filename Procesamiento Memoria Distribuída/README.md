@@ -68,14 +68,15 @@ A continuación se describen los pasos necesarios para compilar el código propo
 Primero, debemos acceder a un entorno que admita MPI. Esto generalmente implica utilizar comandos como `srun` para iniciar procesos MPI. En el ejemplo siguiente, se inicia un entorno de 24 procesos:
 
 ```bash
-srun -n 24 --pty /bin/bash```
+srun -n 24 --pty /bin/bash
+```	
 
 ### 2. Cargar los Módulos Necesarios
 
 A continuación, se deben cargar los módulos necesarios. En el siguiente ejemplo, se carga el módulo OpenMPI:
 
 ```bash
-module load devtools/mpi/openmpi/3.1.4```
+module load devtools/mpi/openmpi/3.1.4 ```
 
 ### 3. Limpieza y Compilación
 
