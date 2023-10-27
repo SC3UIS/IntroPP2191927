@@ -1,28 +1,26 @@
-# Heat Equation Solver
+# Solución de la Ecuación del Calor con MPI
 
-Este proyecto consiste en un programa que resuelve la ecuación del calor en un dominio bidimensional y paraleliza el cálculo utilizando MPI (Message Passing Interface). El programa incluye un código principal y varios archivos de soporte.
+Esta solución es un programa en C que resuelve la Ecuación del Calor en un dominio 2D utilizando el modelo de programación paralela MPI (Message Passing Interface). La Ecuación del Calor se utiliza para simular la distribución de temperatura en una placa 2D a lo largo del tiempo.
 
 ## Estructura de los Códigos
 
-El proyecto consta de varios archivos fuente y encabezado:
+La solución consta de varios archivos fuente, cada uno con una función específica:
 
-- `heat.c` y `heat.h`: Implementan las funciones y estructuras para resolver la ecuación del calor. El archivo `heat.c` contiene el código principal del solucionador.
-
-- `pngwriter.c` y `pngwriter.h`: Contienen funciones para guardar los resultados en archivos PNG y para generar una representación visual de la solución.
-
-- `setup.c`: Define las funciones para inicializar el programa, incluyendo la generación del campo de temperatura inicial.
-
-- `utilities.c`: Contiene utilidades para alojar y gestionar la memoria de los campos de temperatura y copiar datos entre ellos.
-
-- `Makefile`: Archivo para compilar el proyecto.
+- `core.c`: Implementa la lógica principal para resolver la Ecuación del Calor.
+- `heat.h`: Archivo de cabecera que define estructuras y prototipos de funciones.
+- `io.c`: Contiene funciones para leer y escribir datos.
+- `main.c`: El programa principal que configura y controla la ejecución.
+- `pngwriter.c` y `pngwriter.h`: Proporcionan funciones para escribir resultados en archivos PNG.
+- `setup.c`: Contiene funciones para la inicialización del programa.
+- `utilities.c`: Funciones utilitarias para la gestión de campos de temperatura y matrices.
 
 ## Código Principal
 
-El código principal se encuentra en `heat.c`. Es responsable de iniciar el solucionador de la ecuación del calor y coordinar la ejecución paralela utilizando MPI. El archivo contiene la función `main` que controla la simulación.
+El código principal de esta solución se encuentra en `main.c`. Este archivo configura el entorno MPI, inicializa los campos de temperatura, realiza las iteraciones de la simulación y gestiona la comunicación entre procesadores.
 
 ## Instrucciones de Compilación
 
-Para compilar el proyecto, se proporciona un archivo `Makefile`. Simplemente ejecuta el siguiente comando en tu terminal:
+A continuación, se proporciona un ejemplo de cómo compilar la solución en un entorno MPI:
 
-```shell
-make
+```bash
+mpicc -o heat_solver core.c main.c io.c setup.c utilities.c pngwriter.c -lm -lpng
