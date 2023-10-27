@@ -155,7 +155,7 @@ Todos estos comandos, generará una serie de archivos heat_NUM_figura.png que re
 
 Para ejecutar el programa en modo pasivo utilizando sbatch y garantizar que se cargue el módulo MPI recomendado antes de la ejecución, debemos seguir estos pasos:
 
-## 1. Crear un archivo de script de trabajo
+### 1. Crear un archivo de script de trabajo
 
 Crear un archivo de script de trabajo, por ejemplo, run_heat_mpi.sh, utilizando un editor de texto. Similar al siguiente contenido en el archivo:
 ```bash
@@ -178,7 +178,7 @@ NUM_STEPS=1000
 mpirun -np ./heat_mpi
 ```
 
-## 2. Enviar el trabajo a Slurm
+### 2. Enviar el trabajo a Slurm
 
 Utilizando el comando sbatch para enviar el trabajo a Slurm. El script se someterá y ejecutará según las opciones especificadas en el script de trabajo. Asegúrate de estar en el directorio donde se encuentra el script:
 
