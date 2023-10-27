@@ -76,26 +76,30 @@ srun -n 24 --pty /bin/bash
 A continuación, se deben cargar los módulos necesarios. En el siguiente ejemplo, se carga el módulo OpenMPI:
 
 ```bash
-module load devtools/mpi/openmpi/3.1.4 ```
+module load devtools/mpi/openmpi/3.1.4
+```
 
 ### 3. Limpieza y Compilación
 
 Asegúrate de que estás en el directorio donde se encuentra el código fuente. Utiliza el archivo Makefile proporcionado para compilar el programa. Para limpiar los archivos temporales previamente generados, ejecuta:
 
 ```bash
-make clean```
+make clean
+```
 
 Después de limpiar, compila el código utilizando el siguiente comando:
 
 ```bash
-make```
+make
+```
 
 O también, si queremos compilar el programa sin utilizar el archivo Makefile, podemos hacerlo directamente utilizando el comando mpicc:
 
 ```bash
-mpicc -O3 -Wall -o heat_mpi main.c core.c setup.c utilities.c io.c pngwriter.c -lpng -lm ```
+mpicc -O3 -Wall -o heat_mpi main.c core.c setup.c utilities.c io.c pngwriter.c -lpng -lm
+```
 
-Este comando compilará todos los archivos fuente y generará un ejecutable llamado ```bash heat_mpi. Los argumentos ```bash -O3``` y ```bash -Wall``` habilitan las optimizaciones y muestran advertencias, respectivamente. Las opciones ```bash -lpng``` y ```bash -lm``` se utilizan para vincular las bibliotecas necesarias.
+Este comando compilará todos los archivos fuente y generará un ejecutable llamado ``` heat_mpi. ``` Los argumentos ``` -O3 ``` y ``` -Wall ``` habilitan las optimizaciones y muestran advertencias, respectivamente. Las opciones ``` -lpng ``` y ``` -lm ``` se utilizan para vincular las bibliotecas necesarias.
 
 ##Ejecución Interactiva
 
@@ -106,7 +110,8 @@ Podemos ejecutar el programa interactivamente utilizando el comando `mpirun`. A 
 Para ejecutar el programa con los valores predeterminados, utiliza el siguiente comando:
 
 ```bash
-mpirun -np 8 ./heat_mpi```
+mpirun -np 8 ./heat_mpi
+```
 
 Esto ejecutará el programa con valores predeterminados para el campo inicial y los parámetros de tiempo.
 
@@ -115,7 +120,8 @@ Esto ejecutará el programa con valores predeterminados para el campo inicial y 
 Puedes utilizar un archivo de entrada para definir el campo inicial de temperatura. Por ejemplo, si tienes un archivo llamado botella.dat, ejecuta el programa de la siguiente manera:
 
 ```bash
-mpirun -np 8 ./heat_mpi botella.dat```
+mpirun -np 8 ./heat_mpi botella.dat
+```
 
 Esto tomará el campo inicial del archivo botella.dat como punto de partida.
 
@@ -124,7 +130,8 @@ Esto tomará el campo inicial del archivo botella.dat como punto de partida.
 Para especificar tanto el campo inicial desde un archivo como el número de pasos de tiempo, utilizamos el siguiente formato:
 
 ```bash
-mpirun -np 8 ./heat_mpi botella.dat 1000```
+mpirun -np 8 ./heat_mpi botella.dat 1000
+```
 
 Esto cargará el campo inicial desde botella.dat y realizará 1000 pasos de tiempo.
 
@@ -133,12 +140,14 @@ Esto cargará el campo inicial desde botella.dat y realizará 1000 pasos de tiem
 Para definir dimensiones personalizadas (ancho y alto) y el número de pasos de tiempo, podemos hacerlo de la siguiente manera:
 
 ```bash
-mpirun -np 8 ./heat_mpi [ANCHO] [ALTO] [PASOS]```
+mpirun -np 8 ./heat_mpi [ANCHO] [ALTO] [PASOS]
+```
 
 Por ejemplo:
 
 ```bash
-mpirun -np 8 ./heat_mpi 800 800 1000```
+mpirun -np 8 ./heat_mpi 800 800 1000
+```
 
 Todos estos comandos, generará una serie de archivos heat_NUM_figura.png que representan el desarrollo temporal del campo de temperatura. Podemos utilizar cualquier visor de gráficos para visualizar estos resultados.
 
@@ -166,13 +175,15 @@ INPUT_FILE=botella.dat
 NUM_STEPS=1000
 
 # Ejecución del programa con MPI
-mpirun -np ./heat_mpi```
+mpirun -np ./heat_mpi
+```
 
 ## 2. Enviar el trabajo a Slurm
 
 Utilizando el comando sbatch para enviar el trabajo a Slurm. El script se someterá y ejecutará según las opciones especificadas en el script de trabajo. Asegúrate de estar en el directorio donde se encuentra el script:
 
 ```bash 
-sbatch run_heat_mpi.sh```
+sbatch run_heat_mpi.sh
+```
 
 
