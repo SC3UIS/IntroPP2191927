@@ -186,7 +186,7 @@ Utilizando el comando sbatch para enviar el trabajo a Slurm. El script se somete
 sbatch run_heat_mpi.sh
 ```
 
-# Ejecución de pruebas Simulación de la Ecuación de Calor 2D
+# Ejecución de pruebas sin mejoras de código
 
 Los resultados de la simulación de la ecuación de calor 2D utilizando el programa `heat_mpi` compilado con las banderas por defecto `-O3 -Wall` pero con diferentes configuraciones. A continuación, se presentan los resultados, las configuraciones y las conclusiones de las pruebas.
 
@@ -245,4 +245,76 @@ Resultados:
 **En la Prueba 2, se reinició desde un punto de control guardado, lo que permitió continuar desde una iteración anterior. Esto puede ser útil para reducir el tiempo de ejecución cuando se requieren ejecuciones largas.**
 
 **Los valores de referencia en la Prueba 2 y Prueba 3 muestran la temperatura en el punto (5,5), lo que puede ser importante para evaluar la precisión del resultado.**
- 
+
+# Ejecución de pruebas con mejoras de código (main.c)
+
+En esta versión del main.c paralelizamos la solución de la ecuación de calor en 2D utilizando MPI. La paralelización se ha realizado para mejorar el rendimiento y permitir cálculos más rápidos en sistemas distribuidos.
+
+## Mejoras
+
+- Paralelización del cálculo de la ecuación de calor en 2D.
+- Uso de MPI para dividir el dominio en subdominios manejados por procesos MPI separados.
+- Cada proceso MPI calcula la evolución de la temperatura en su subdominio.
+- Comunicación entre procesos vecinos para mantener la coherencia de los datos.
+
+## Pruebas
+
+
+### Prueba 1: Ejecución con archivo 'bottle.dat'
+
+Ejecución:
+```bash
+mpirun -np 8 ./heat_mpi bottle.dat
+```
+
+Resultados:
+
+![Texto alternativo](https://github.com/SC3UIS/IntroPP2191927/blob/main/Procesamiento%20Memoria%20Distribu%C3%ADda/imgs/mejora1.png)
+
+- Usando una descomposición de dominio de 4x2
+- Tamaño del dominio local: 500 x 1000
+- Reinicio desde un punto de control anterior guardado en la iteración 2400.
+- La iteración tomó 63.637 segundos.
+- Valor de referencia en (5,5): 52.636378
+
+### Prueba 2: Ejecución con archivo 'bottle.dat' y 1000 pasos
+
+Ejecución:
+```bash
+mpirun -np 8 ./heat_mpi bottle.dat 1000
+```
+
+Resultados:
+
+![Texto alternativo](https://github.com/SC3UIS/IntroPP2191927/blob/main/Procesamiento%20Memoria%20Distribu%C3%ADda/imgs/mejora2.png)
+
+- Usando una descomposición de dominio de 4x2
+- Tamaño del dominio local: 500 x 1000
+- Reinicio desde un punto de control anterior guardado en la iteración 2800.
+- La iteración tomó 156.979 segundos.
+- Valor de referencia en (5,5): 52.604227
+
+### Prueba 3: Ejecución con dimensiones 1280x1280 y 1000 pasos
+
+Ejecución:
+```bash 
+mpirun -np 8 ./heat_mpi 1280 1280 1000
+```
+
+Resultados:
+
+![Texto alternativo](https://github.com/SC3UIS/IntroPP2191927/blob/main/Procesamiento%20Memoria%20Distribu%C3%ADda/imgs/mejora3.png)
+
+- Usando una descomposición de dominio de 4x2
+- Tamaño del dominio local: 500 x 1000
+- Reinicio desde un punto de control anterior guardado en la iteración 3800.
+- La iteración tomó 156.799 segundos.
+- Valor de referencia en (5,5): 52.582592
+
+## Conclusiones
+
+**La versión paralelizada del código ha reducido significativamente los tiempos de ejecución en comparación con la versión original. Esto es especialmente evidente en los casos de ejecución con botella.dat y ejecuciones con un mayor número de pasos de tiempo.**
+
+**La paralelización del código ha permitido dividir la carga de trabajo entre múltiples procesos, lo que resulta en un mejor rendimiento y una reducción del tiempo de cómputo.**
+
+**Los resultados con mejoras han producido valores de referencia de temperatura similares a los resultados sin mejoras, lo que sugiere que la precisión del cálculo se ha mantenido.**
