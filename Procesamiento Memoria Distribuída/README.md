@@ -81,13 +81,13 @@ module load devtools/mpi/openmpi/3.1.4
 
 ### 3. Limpieza y Compilación
 
-Asegúrate de que estás en el directorio donde se encuentra el código fuente. Utiliza el archivo Makefile proporcionado para compilar el programa. Para limpiar los archivos temporales previamente generados, ejecuta:
+Utilizamos el archivo Makefile proporcionado para compilar el programa. Para limpiar los archivos temporales previamente generados, ejecuta:
 
 ```bash
 make clean
 ```
 
-Después de limpiar, compila el código utilizando el siguiente comando:
+Después de limpiar, compilamos el código utilizando el siguiente comando:
 
 ```bash
 make
@@ -149,7 +149,7 @@ Por ejemplo:
 mpirun -np 8 ./heat_mpi 800 800 1000
 ```
 
-Todos estos comandos, generará una serie de archivos heat_NUM_figura.png que representan el desarrollo temporal del campo de temperatura. Podemos utilizar cualquier visor de gráficos para visualizar estos resultados.
+Todos estos comandos, generarán una serie de archivos heat_NUM_figura.png que representan el desarrollo temporal del campo de temperatura. Podemos utilizar cualquier visor de gráficos para visualizar estos resultados.
 
 ## Ejecución Pasiva
 
